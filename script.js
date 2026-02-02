@@ -430,8 +430,8 @@ function tampilkanHasil(nilai, jawabanBenar, waktuPengerjaan, detailJawaban) {
     document.getElementById('hasil-tanggal').textContent = new Date().toLocaleString();
     
     document.getElementById('nilai-angka').textContent = nilai;
-    document.getElementById('hasil-benar').textContent = jawabanBenar;
-    document.getElementById('hasil-salah').textContent = soalData.length - jawabanBenar;
+    
+    
     
     // Laporan keamanan
     const laporanKeamanan = document.getElementById('laporan-keamanan');
@@ -601,4 +601,5 @@ window.addEventListener('beforeunload', (e) => {
 });
 
 // Inisialisasi
+
 updateSoalTerjawab();
