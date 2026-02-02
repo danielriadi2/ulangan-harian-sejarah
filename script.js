@@ -483,33 +483,50 @@ function tampilkanHasil(nilai, jawabanBenar, waktuPengerjaan, detailJawaban) {
     tabelJawaban.innerHTML = tabelHTML;
 }
 
+
+// Kirim data ke Google Sheets
 function kirimKeGoogleSheets(nilai, jawabanBenar, waktuDetik, detailJawaban) {
     const data = {
         nama: namaInput.value,
         kelas: kelasSelect.value,
         nilai: nilai,
         jawabanBenar: jawabanBenar,
+        jawabanSalah: soalData.length - jawabanBenar,
         waktuPengerjaan: waktuDetik,
         status: statusJujur ? "Jujur" : "Curang",
-        logAktivitas: logAktivitas,
-        timestamp: new Date().toISOString()
+        logAktivitas: logAktivitas.join(" | "),
+        waktuPerSoal: waktuPerSoal.join(","),
+        timestamp: new Date().toLocaleString(),
+        jawabanDetail: JSON.stringify(detailJawaban)
     };
     
-    // Ganti URL_DEPLOY_APPS_SCRIPT dengan URL yang Anda dapatkan dari langkah 11
-    const url = "https://script.google.com/macros/s/AKfycbwRFovGyPWuO6kj5KtQ-vyOskn6xYkyHSheWrrIcL0CToOtT-YPlNyTsy2Zz-in29Ld/exec";
+    console.log("Mengirim data ke Google Sheets:", data);
     
-    fetch(url, {
+    // **PENTING: Ganti URL ini dengan URL Apps Script Anda nanti**
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxG8T4elkNrCy-G6lCUXkx_XVZTxe7dMPUaWFnLnEZzCUykb8q__BI7mwAmE8UriGMx/exec";
+    
+    // Kirim data menggunakan FormData (cara yang lebih kompatibel)
+    const formData = new FormData();
+    for (const key in data) {
+        formData.append(key, data[key]);
+    }
+    
+    fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).catch(err => {
-        console.log("Error mengirim ke Google Sheets:", err);
+        body: formData
+    })
+    .then(response => {
+        console.log("Response dari Google Sheets:", response);
+        if (response.ok) {
+            console.log("✅ Data berhasil dikirim ke Google Sheets!");
+        } else {
+            console.log("❌ Gagal mengirim data ke Google Sheets");
+        }
+    })
+    .catch(error => {
+        console.error("❌ Error mengirim ke Google Sheets:", error);
     });
 }
-
 // Event Listeners
 formDataDiri.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -603,3 +620,4 @@ window.addEventListener('beforeunload', (e) => {
 // Inisialisasi
 
 updateSoalTerjawab();
+
