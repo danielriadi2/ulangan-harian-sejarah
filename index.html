@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULANGAN HARIAN SEJARAH - SMA NEGERI 5 TANAH PUTIH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="#">
+</head>
+<body>
+    <!-- Tampilan Awal -->
+    <div id="tampilan-awal" class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img id="logo-sekolah" src="logo.png" alt="Logo Sekolah">
+            </div>
+            <h1>SMA NEGERI 5 TANAH PUTIH</h1>
+            <h2>KABUPATEN ROKAN HILIR</h2>
+            <div class="judul-ulangan">
+                <h3><i class="fas fa-book-open"></i> ULANGAN HARIAN SEJARAH</h3>
+                <p>Masa Pendudukan Jepang di Indonesia</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div class="info-box">
+                <h4><i class="fas fa-exclamation-circle"></i> PERHATIAN!</h4>
+                <p>Sebelum memulai ulangan, harap perhatikan hal berikut:</p>
+                <ul>
+                    <li><i class="fas fa-ban"></i> DILARANG mencontek atau membuka aplikasi lain</li>
+                    <li><i class="fas fa-ban"></i> DILARANG menyalin (copy-paste) soal atau jawaban</li>
+                    <li><i class="fas fa-clock"></i> Waktu pengerjaan: 13 menit 45 detik</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> Pelanggaran akan menyebabkan pengiriman jawaban otomatis</li>
+                </ul>
+            </div>
+            
+            <form id="form-data-diri">
+                <div class="form-group">
+                    <label for="nama"><i class="fas fa-user"></i> NAMA SISWA:</label>
+                    <input type="text" id="nama" required placeholder="Masukkan nama lengkap">
+                </div>
+                
+                <div class="form-group">
+                    <label for="kelas"><i class="fas fa-users"></i> KELAS:</label>
+                    <select id="kelas" required>
+                        <option value="">Pilih Kelas</option>
+                        <option value="10 Satu">10 Satu</option>
+                        <option value="10 Dua">10 Dua</option>
+                        <option value="10 Tiga">10 Tiga</option>
+                        <option value="10 Empat">10 Empat</option>
+                        <option value="11 Satu">11 Satu</option>
+                        <option value="11 Dua">11 Dua</option>
+                        <option value="11 Tiga">11 Tiga</option>
+                        <option value="12 Satu">12 Satu</option>
+                        <option value="12 Dua">12 Dua</option>
+                        <option value="12 Tiga">12 Tiga</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="setuju" required>
+                    <label for="setuju">Saya menyatakan akan mengerjakan ulangan dengan jujur tanpa mencontek</label>
+                </div>
+                
+                <button type="submit" id="mulai-ujian" class="btn-primary">
+                    <i class="fas fa-play-circle"></i> MULAI ULANGAN
+                </button>
+            </form>
+            
+            <div class="catatan">
+                <p><i class="fas fa-lock"></i> Sistem keamanan aktif: <span id="status-keamanan">Monitoring perilaku ujian</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tampilan Ujian -->
+    <div id="tampilan-ujian" class="container" style="display:none;">
+        <div class="header-ujian">
+            <div class="info-siswa">
+                <div class="logo-small">
+                    <img src="https://via.placeholder.com/50x50/1e3a8a/ffffff?text=LOGO" alt="Logo Sekolah">
+                </div>
+                <div>
+                    <h4 id="nama-tampilan"></h4>
+                    <p id="kelas-tampilan"></p>
+                </div>
+            </div>
+            
+            <div class="timer-container">
+                <div class="timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer">13:45</span>
+                </div>
+                <div class="peringatan-waktu">
+                    <p><i class="fas fa-exclamation-triangle"></i> Waktu tersisa</p>
+                </div>
+            </div>
+            
+            <div class="indikator-keamanan">
+                <div class="status-box" id="status-jujur">
+                    <i class="fas fa-user-check"></i>
+                    <span>Status: Jujur</span>
+                </div>
+                <div class="peringatan" id="peringatan-curang" style="display:none;">
+                    <i class="fas fa-user-slash"></i>
+                    <span>Terdeteksi kecurangan!</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="soal-container">
+            <div class="soal-header">
+                <h3><i class="fas fa-history"></i> ULANGAN HARIAN SEJARAH</h3>
+                <p>Masa Pendudukan Jepang di Indonesia</p>
+                <div class="info-soal">
+                    <p><i class="fas fa-list-ol"></i> Jumlah soal: <span id="jumlah-soal">15</span></p>
+                    <p><i class="fas fa-question-circle"></i> Soal yang terjawab: <span id="terjawab">0</span></p>
+                </div>
+            </div>
+            
+            <div id="daftar-soal">
+                <!-- Soal akan dimuat secara dinamis dari JavaScript -->
+            </div>
+            
+            <div class="nav-soal">
+                <button id="sebelumnya" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </button>
+                <button id="selanjutnya" class="btn-secondary">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </button>
+                <button id="kirim-jawaban" class="btn-danger">
+                    <i class="fas fa-paper-plane"></i> Kirim Jawaban
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer-ujian">
+            <p><i class="fas fa-lock"></i> Sistem keamanan aktif: Pengawasan perilaku ujian sedang berlangsung</p>
+            <p><i class="fas fa-shield-alt"></i> Dilarang keras melakukan tindakan kecurangan</p>
+        </div>
+    </div>
+    
+    <!-- Tampilan Hasil -->
+    <div id="tampilan-hasil" class="container" style="display:none;">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/150x150/1e3a8a/ffffff?text=LOGO" alt="Logo Sekolah">
+            </div>
+            <h1>SMA NEGERI 5 TANAH PUTIH</h1>
+            <h2>KABUPATEN ROKAN HILIR</h2>
+        </div>
+        
+        <div class="hasil-container">
+            <h3><i class="fas fa-clipboard-check"></i> HASIL ULANGAN HARIAN SEJARAH</h3>
+            
+            <div class="info-hasil">
+                <div class="card-hasil">
+                    <h4>Data Siswa</h4>
+                    <p><strong>Nama:</strong> <span id="hasil-nama"></span></p>
+                    <p><strong>Kelas:</strong> <span id="hasil-kelas"></span></p>
+                    <p><strong>Waktu Pengerjaan:</strong> <span id="hasil-waktu"></span></p>
+                    <p><strong>Status:</strong> <span id="hasil-status"></span></p>
+                    <p><strong>Waktu Pengumpulan:</strong> <span id="hasil-tanggal"></span></p>
+                </div>
+                
+                <div class="card-hasil">
+                    <h4>Nilai</h4>
+                    <div class="nilai-container">
+                        <div class="nilai-angka" id="nilai-angka">0</div>
+                        <div class="nilai-detail">
+                            <p>Benar: <span id="hasil-benar">0</span> dari 15 soal</p>
+                            <p>Salah: <span id="hasil-salah">0</span> dari 15 soal</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-hasil">
+                    <h4>Laporan Keamanan</h4>
+                    <div id="laporan-keamanan">
+                        <p><i class="fas fa-check-circle"></i> Tidak terdeteksi kecurangan</p>
+                    </div>
+                    <p class="catatan-kecil">*Hasil telah dikirim ke Google Sheets guru</p>
+                </div>
+            </div>
+            
+            <div class="detail-jawaban">
+                <h4><i class="fas fa-list-check"></i> Detail Jawaban</h4>
+                <div id="tabel-jawaban">
+                    <!-- Tabel jawaban akan diisi oleh JavaScript -->
+                </div>
+            </div>
+            
+            <div class="pesan-guru">
+                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Pesan dari Guru:</strong> Terima kasih telah mengerjakan ulangan dengan jujur. Hasil ini akan dicatat sebagai nilai ulangan harian Anda.</p>
+            </div>
+            
+            <button id="tutup-hasil" class="btn-primary">
+                <i class="fas fa-check-circle"></i> TUTUP
+            </button>
+        </div>
+    </div>
+    
+    <!-- Modal Peringatan -->
+    <div id="modal-peringatan" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> PERINGATAN!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="pesan-peringatan"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="tutup-modal" class="btn-danger">Mengerti</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
